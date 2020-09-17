@@ -1,46 +1,52 @@
 <template>
 <v-container>
   <v-row wrap justify="center" class="">
-    <v-col xs12 sm10 md8 >
-      <v-card class="accent d-flex flex-row mb-6"
-      >
-        <v-container fluid>
-          <v-row wrap justify="start">
-            <v-col xs5 sm4 md3 cols="6">
-              <v-img
-                src="https://cdn-image.travelandleisure.com/sites/default/files/styles/1600x1000/public/1444253482/DG2015-new-york.jpg?itok=neFmsUY1"
-                height="150px"
-                contain
-                absolute>
-              </v-img>
-              </v-col>
-              <v-col xs7 sm8 md9 cols="3">
-              <v-card-title>
-                <div>                <h3 class="white--text ">My Meetup</h3>
-                <div>17th July 2021</div>
-                </div>
-              </v-card-title>
-              <v-card-actions>
-                <v-btn depressed large light class="accent" to="/meetups/1">
-                  <v-icon left>mdi-arrow-right-bold-outline</v-icon>
-                  View Meetup
-                </v-btn>
-              </v-card-actions>
-              </v-col>
-          </v-row>
-        </v-container>
-      </v-card>
-    </v-col>
+  <v-card xs12 sm6
+    class="mx-auto info mb-3"
+    max-width="400"
+    v-for="meetup in loadedMeetups" :key="meetup.id"
+  >
+    <v-img
+      class="white--text align-end"
+      height="200px"
+      :src="meetup.imageUrl"
+    >
+    </v-img>
+  <v-row align="center" justify="center">
+    <v-card-subtitle class="pb-0"></v-card-subtitle>
+    <v-card-text class="text-left pl-8">
+          <div class="white--text">{{meetup.date | date}}</div>
+      </v-card-text>
+    <v-card-text style="fontsize: 2rem" class="text--primary text-center">
+      <div class="white--text font">{{ meetup.title }}</div>
+    </v-card-text>
+
+    <v-card-actions>
+      <v-btn
+        color="white"
+        text
+        :to="'/meetups/' + meetup.id"
+      ><v-icon>mdi-arrow-right-bold-outline</v-icon>
+      View Meetup
+      </v-btn>
+    </v-card-actions>
+    </v-row>
+  </v-card>
   </v-row>
 </v-container>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
-
+  computed: {
+    ...mapGetters (['loadedMeetups'])
+  }
 }
 </script>
 
-<style>
-
+<style scoped>
+.font{
+  font-size: 1.5rem !important;
+}
 </style>

@@ -49,12 +49,11 @@
 
 <script>
 export default {
-  data: () => ({
-    meetups : [
-      { imageUrl: 'https://cbsnews3.cbsistatic.com/hub/i/r/2020/08/05/e75c7d31-b8e5-4957-b8e6-672664837164/thumbnail/1200x630g8/247b3168454fcbd27326be7ea56d6e98/gettyimages-1208986924.jpg', id: 'asdfdgg', title: 'Meetup in New York'},
-            { imageUrl: 'https://cdn-image.travelandleisure.com/sites/default/files/styles/1600x1000/public/1444253482/DG2015-new-york.jpg?itok=neFmsUY1', id: 'asdfdpg', title: 'Meetup in Paris'}
-    ]
-  }),
+  computed: {
+    meetups () {
+      return this.$store.getters.featuredMeetups
+    }
+  },
   methods: {
     onLoadMeetup(id){
       this.$router.push('/meetups/' + id)
