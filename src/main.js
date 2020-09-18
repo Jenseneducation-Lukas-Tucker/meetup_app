@@ -2,14 +2,16 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import * as firebase from 'firebase'
-import vuetify from './plugins/vuetify';
+import vuetify from './plugins/vuetify'
 import { store } from './store/index'
 import DateFilter from './filters/date'
+import AlertCmp from './components/alert.vue'
 
 
 Vue.config.productionTip = false
 
 Vue.filter('date', DateFilter)
+Vue.component('app-alert', AlertCmp)
 
 new Vue({
   router,
@@ -27,5 +29,11 @@ new Vue({
       appId: '1:1010630917958:web:2bb9950ea3598ff155ef47',
       measurementId: 'G-2WKHGDCJDB'
     })
+    firebase.auth().onAuthStateChanged((user)=>{
+      if (user){
+        this.$store.dispatch('autoSignIn', user)
+      }
+    })
+    this.$store.dispatch('loadMeetups')
   }
 }).$mount('#app')

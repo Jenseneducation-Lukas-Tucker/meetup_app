@@ -8,10 +8,19 @@
     pt-4
     pt-sm-4">
       <v-btn large router to="/meetups" class="accent ma-3">Explore Meetups</v-btn>
-      <v-btn large router to="/meetups/new" class="accent ma-3">Organize Meetups</v-btn>
+      <v-btn large router :to="{path:'meetup/new'}" class="accent ma-3">Organize Meetups</v-btn>
     </v-col>
   </v-row>
-  <v-row justify="center" wrap>
+  <v-row justify="center">
+          <v-progress-circular
+      indeterminate
+      color="primary"
+      :width="7"
+      :size="70"
+      v-if="loading"
+    ></v-progress-circular>
+  </v-row>
+  <v-row justify="center" wrap v-if="!loading">
     <v-col xs12 sm6
     >
         <v-carousel
@@ -52,12 +61,15 @@ export default {
   computed: {
     meetups () {
       return this.$store.getters.featuredMeetups
+    },
+    loading(){
+      return this.$store.getters.loading
     }
   },
   methods: {
     onLoadMeetup(id){
       this.$router.push('/meetups/' + id)
-    }
+    },
   }
 }
 </script>

@@ -66,17 +66,16 @@
           <h2>Choose a Date & Time</h2>
         </v-row>
         <v-row justify="center">
-          <v-col sm="6">
-          <v-date-picker v-model="date">
+          <v-date-picker v-model="date" class="ma-3">
           </v-date-picker>
-          <v-time-picker v-model="time" format="24hr">
+          <v-time-picker v-model="time" format="24hr" class="ma-3">
           </v-time-picker>
-          </v-col>
+        
         </v-row>
         
         <v-row justify="center">
             <v-btn 
-            class="primary" :disabled="!formIsValid"
+            class="primary ma-3" :disabled="!formIsValid"
             type="submit"
             >
               Create Meetup
@@ -128,7 +127,7 @@ export default {
         }
         const meetupData = {
           title: this.title,
-          location: this.locations,
+          location: this.location,
           imageUrl: this.imageUrl,
           description: this.description,
           date: this.submittableDateTime

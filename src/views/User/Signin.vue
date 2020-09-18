@@ -1,5 +1,10 @@
 <template>
 <v-container>
+    <v-row justify="center" v-if="error">
+    <v-col cols="12" sm="6">
+      <app-alert @dismissed="onDismissed" :text="error.message" ></app-alert>
+    </v-col>
+  </v-row>
   <v-row justify="center">
     <v-col cols="12" sm="6">
       <v-card>
@@ -32,7 +37,14 @@
               </v-row>
               <v-row>
                 <v-col cols="12">
-                  <v-btn type="submit">Sign In</v-btn>
+                  <v-btn type="submit"
+                  :disabled="loading" 
+                  :loading="loading">
+                  Sign Up
+                    <span class="custom-loader">
+                      <v-icon light></v-icon>
+                  </span>
+                  </v-btn>
                 </v-col>
               </v-row>
             </form>
@@ -53,6 +65,12 @@ data: () => ({
 computed:{
   user() {
     return this.$store.getters.user
+  },
+  error () {
+    return this.$store.getters.error
+  },
+  loading (){
+    return this.$store.getters.loading
   }
 },
 //watch user from computed so whenever the getter gives us a state
@@ -66,7 +84,10 @@ watch: {
 methods: {
   onSignin () {
     // VUEX
-    this.$store.dispatch('signUserUp', {email: this.email, password: this.password})
+    this.$store.dispatch('signUserIn', {email: this.email, password: this.password})
+  },
+  onDismissed (){
+    this.$store.dispatch('clearError')
   }
 }
 }

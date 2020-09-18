@@ -12,6 +12,12 @@
           </v-list-item-action>
           <v-list-item-content>{{item.title}}</v-list-item-content>
         </v-list-item>
+                <v-list-item >
+          <v-list-item-action>
+            <v-icon>mdi-logout-variant</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>Logout</v-list-item-content>
+        </v-list-item>
       </v-list>
     </v-navigation-drawer>
       <v-card
@@ -38,6 +44,11 @@
         :to="item.link">
           <v-icon left>{{item.icon}}</v-icon>
           {{item.title}}</v-btn>
+        <v-btn 
+          depressed
+          class="primary">
+          <v-icon left>mdi-logout-variant</v-icon>
+          Logout</v-btn>
         </v-toolbar-items>
         
     </v-app-bar>
