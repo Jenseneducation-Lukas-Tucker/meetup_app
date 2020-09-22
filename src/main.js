@@ -6,12 +6,14 @@ import vuetify from './plugins/vuetify'
 import { store } from './store/index'
 import DateFilter from './filters/date'
 import AlertCmp from './components/alert.vue'
+import EditMeetup from './components/EditMeetup.vue'
 
 
 Vue.config.productionTip = false
 
 Vue.filter('date', DateFilter)
 Vue.component('app-alert', AlertCmp)
+Vue.component('app-edit-meetup', EditMeetup)
 
 new Vue({
   router,
@@ -24,7 +26,7 @@ new Vue({
       authDomain: 'meetupapp-55880.firebaseapp.com',
       databaseURL: 'https://meetupapp-55880.firebaseio.com',
       projectId: 'meetupapp-55880',
-      storageBucket: 'meetupapp-55880.appspot.com',
+      storageBucket: 'gs://meetupapp-55880.appspot.com',
       messagingSenderId: '1010630917958',
       appId: '1:1010630917958:web:2bb9950ea3598ff155ef47',
       measurementId: 'G-2WKHGDCJDB'
