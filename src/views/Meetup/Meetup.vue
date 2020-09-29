@@ -38,10 +38,14 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
+          <app-write-review :meetup="meetup"></app-write-review>
           <app-register :meetupId="meetup.id" v-if="userIsAuth &&!userIsCreator"></app-register>
         </v-card-actions>
       </v-card>
     </v-col>
+  </v-row>
+  <v-row justify="center">
+    <app-review :meetup="meetup"></app-review>
   </v-row>
   </v-container> 
 </template>
@@ -53,6 +57,9 @@ export default {
   computed: {
     meetup (){
     return this.$store.getters.loadedMeetup(this.id)
+    },
+    reviews () {
+      return this.$store.getters.loadedReviews
     },
     userIsAuth () {
       return this.$store.getters.user != null && this.$store.getters.user !== undefined

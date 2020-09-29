@@ -10,6 +10,8 @@ import EditMeetup from './components/EditMeetup.vue'
 import EditDate from './components/EditDate.vue'
 import EditTime from './components/EditTime.vue'
 import Register from './components/Register.vue'
+import WriteReview from './components/WriteReview.vue'
+import Review from './components/Review.vue'
 
 
 Vue.config.productionTip = false
@@ -20,6 +22,8 @@ Vue.component('app-edit-meetup', EditMeetup)
 Vue.component('app-edit-date', EditDate)
 Vue.component('app-edit-time', EditTime)
 Vue.component('app-register', Register)
+Vue.component('app-write-review', WriteReview)
+Vue.component('app-review', Review)
 
 new Vue({
   router,
@@ -41,6 +45,7 @@ new Vue({
       if (user){
         this.$store.dispatch('autoSignIn', user)
         this.$store.dispatch('fetchUserData')
+        this.$store.dispatch('loadReviews')
       }
     })
     this.$store.dispatch('loadMeetups')

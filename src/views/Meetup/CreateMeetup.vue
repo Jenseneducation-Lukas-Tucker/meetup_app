@@ -1,5 +1,5 @@
 <template>
-<v-container>
+<v-container data-testid="createmeetup">
   <v-row justify="center">
     <v-col sm="6">
       <h1 class="primary--text">Create a new Meetup</h1>
@@ -7,7 +7,7 @@
   </v-row>
   <v-row>
     <v-col>
-      <form @submit.prevent="onCreateMeetup">
+      <form @submit.prevent="onCreateMeetup" data-testid="form">
         <v-row justify="center">
           <v-col sm="6"
           cols="12">

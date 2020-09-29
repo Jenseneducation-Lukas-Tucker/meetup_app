@@ -6,9 +6,19 @@ Vue.use(Vuex)
 
 export default {
   state:{
+    reviews: [{
+      rating: 5,
+      review: 'blablabla',
+      CreatorId:'sadfgh',
+      meetupId:'asdfdgg',
+      id:''
+    }],
     user: null,
   },
   mutations:{
+    setLoadedReviews (state, payload) {
+      state.reviews = payload
+    },
     registerForMeetup (state, payload){
       const id = payload.id
       if(state.user.registeredMeetups.findIndex(meetup=>meetup.id === id) >= 0){
@@ -22,11 +32,45 @@ export default {
       registeredMeetups.splice(registeredMeetups.findIndex(meetup=>meetup.id === payload), 1)
       Reflect.deleteProperty(state.user.fbKeys, payload)
     },
+    postReview (state, payload){
+      state.reviews.push(payload)
+    },
+    deleteReview(state, payload) {
+      const userReviews = state.user.reviews
+      userReviews.splice(userReviews.findIndex(meetup=>meetup.id === payload), 1)
+      Reflect.deleteProperty(state.user.fbKeys, payload)
+    },
     setUser (state, payload) {
       state.user = payload
     }
   },
   actions:{
+    loadReviews ({commit, getters}){
+      commit('setLoading',true)
+      const user = getters.user
+      firebase.database().ref('/users/' + user.id + '/reviews/').once('value')
+      .then((data) => {
+        const reviews = []
+        const object = data.val()
+        console.log(object)
+
+        for (let key in object) {
+            reviews.push({
+            id: key,
+            rating: object[key].rating,
+            review: object[key].review,
+            creatorId: object[key].creatorId,
+            meetupId: object[key].meetupId
+          })
+        }
+        commit('setLoadedReviews', reviews)
+        commit('setLoading',false)
+      })
+      .catch((error)=>{
+        console.log(error)
+        commit('setLoading',false)
+      })
+    },
     registerForMeetup({commit, getters}, payload) {
       commit('setLoading', true)
       const user = getters.user
@@ -58,7 +102,48 @@ export default {
         console.log(error)
         commit('setLoading',false)
       })
+    },
+    postReview({commit, getters}, payload) {
+      commit('setLoading', true)
+      const user = firebase.auth().currentUser
+      const review = {
+        rating: payload.rating,
+        review: payload.review,
+        meetupId: payload.meetupId,
+        creatorId: user.email
+      }
+      firebase.database().ref('/users/' + getters.user.id).child('/reviews/').push(review)
+      .then((data) =>{ 
+        const key = data.key
+        commit('setLoading', false)
+        console.log(data)
+        commit('postReview', {
+          ...review,
+          id: key})
+      })
+      .catch(error =>{
+        commit('setLoading', false)
+        console.log(error)
+      })
+      },
 
+    deleteReview({commit, getters},payload){
+      commit('setLoading', true)
+      const user = getters.user
+      if (!user.fbKeys){
+        return
+      }
+      const fbKey = user.fbKeys[payload]
+      firebase.database().ref('/users/' + user.id + '/reviews/').child(fbKey)
+        .remove()
+      .then(() => {
+        commit('setLoading', false)
+        commit('unregisterFromMeetup', payload)
+      })
+      .catch(error => {
+        console.log(error)
+        commit('setLoading',false)
+      })
     },
     signUserUp ({commit}, payload) {
       commit('setLoading',true)
@@ -70,6 +155,8 @@ export default {
           const newUser = {
             id: user.uid,
             registeredMeetups: [],
+            reviews: [],
+            userReviews: [],
             fbKeys: {}
           }
           commit('setUser', newUser)
@@ -93,6 +180,8 @@ export default {
           const newUser = {
             id: user.uid,
             registeredMeetups: [],
+            reviews: [],
+            userReviews: [],
             fbKeys: {}
           }
           commit('setUser', newUser)
@@ -143,6 +232,11 @@ export default {
       }
   },
   getters:{
+    loadedReviews (state) {
+      return state.reviews.sort((reviewA, reviewB) => {
+        return reviewA.rating > reviewB.rating
+      })
+      },
     user (state) {
       return state.user
     }

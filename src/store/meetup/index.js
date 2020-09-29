@@ -107,8 +107,8 @@ export default {
           })
           commit('setLoading',false)
         })
-        commit('setLoading',false)
         .catch((error) => {
+          commit('setLoading',false)
           console.log(error)
         })
       // Reach out to firebase and store it

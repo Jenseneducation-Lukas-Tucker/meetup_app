@@ -20,6 +20,7 @@
             <v-btn 
             class="blue--text darken-1" 
             depressed 
+            data-testid="dialog-close-button"
             @click.native="editDialog = false"
             >Close</v-btn>
             <v-btn 
