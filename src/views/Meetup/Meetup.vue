@@ -45,7 +45,7 @@
     </v-col>
   </v-row>
   <v-row justify="center">
-    <app-review :meetup="meetup"></app-review>
+    <app-review :meetupId="meetup.id"></app-review>
   </v-row>
   </v-container> 
 </template>
