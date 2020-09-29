@@ -1,5 +1,5 @@
 <template>
-<v-container v-if="sameId">
+<v-container>
   <v-row justify="center" v-if="loadedReviews.meetupId == loadedMeetup.id">
   <v-card
     class="mx-auto"
@@ -35,7 +35,7 @@
 <script>
 import { mapGetters } from 'vuex'
 export default {
-  props:['meetupId'],
+  props:['meetup'],
   data () {
     return {
       editCard: false,
@@ -44,14 +44,5 @@ export default {
   computed: {
     ...mapGetters (['loadedReviews','loadedMeetup'])
   },
-  methods: {
-    sameId(){
-      if(this.loadedReviews.meetupId===this.meetupId){
-        return
-      }else{
-        console.log('not the same Id')
-      }
-    }
-  }
 }
 </script>
