@@ -2,7 +2,7 @@
 <v-container>
     <v-row justify="center" v-if="error">
     <v-col cols="12" sm="6">
-      <app-alert @dismissed="onDismissed" :text="error.message" ></app-alert>
+      <app-alert data-testid="alert" @dismissed="onDismissed" :text="error.message" ></app-alert>
     </v-col>
   </v-row>
   <v-row justify="center">
@@ -39,8 +39,9 @@
                 <v-col cols="12">
                   <v-btn type="submit"
                   :disabled="loading" 
-                  :loading="loading">
-                  Sign Up
+                  :loading="loading"
+                  id="signin">
+                  Sign In
                     <span class="custom-loader">
                       <v-icon light></v-icon>
                   </span>

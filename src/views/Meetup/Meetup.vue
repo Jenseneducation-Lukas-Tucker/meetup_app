@@ -38,14 +38,14 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <app-write-review :meetup="meetup"></app-write-review>
-          <app-register :meetupId="meetup.id" v-if="userIsAuth &&!userIsCreator"></app-register>
+          <app-write-review :meetup="meetup" id="review"></app-write-review>
+          <app-register :meetupId="meetup.id" v-if="userIsAuth &&!userIsCreator" id="register"></app-register>
         </v-card-actions>
       </v-card>
     </v-col>
   </v-row>
   <v-row justify="center">
-    <app-review :meetupId="meetup.id"></app-review>
+    <app-review :meetup="meetup"></app-review>
   </v-row>
   </v-container> 
 </template>

@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CreateMeetup.vue It renders correctly and matches snapshot 1`] = `
+<div class="text-center">
+  <h1>Coming Soon!</h1>
+  <h2 class="primary--text">Organize your meetup in the meantime!</h2>
+</div>
+`;

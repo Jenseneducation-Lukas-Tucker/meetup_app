@@ -1,5 +1,5 @@
 <template>
-<v-container>
+<v-container data-testid="meetups">
   <v-row wrap justify="center" class="">
   <v-card xs12 sm6
     class="mx-auto info mb-3"

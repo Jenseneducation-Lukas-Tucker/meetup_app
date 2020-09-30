@@ -63,9 +63,16 @@
           <h2>Choose a Date & Time</h2>
         </v-row>
         <v-row justify="center">
-          <v-date-picker v-model="date" class="ma-3">
+          <v-date-picker 
+          v-model="date" 
+          class="ma-3"
+          id="date">
           </v-date-picker>
-          <v-time-picker v-model="time" format="24hr" class="ma-3">
+          <v-time-picker 
+          v-model="time" 
+          format="24hr" 
+          class="ma-3"
+          id="time">
           </v-time-picker>
         
         </v-row>
@@ -73,7 +80,7 @@
         <v-row justify="center">
             <v-btn 
             class="primary ma-3" :disabled="!formIsValid"
-            type="submit"
+            type="submit" id="createmeetupbtn"
             >
               Create Meetup
             </v-btn>
